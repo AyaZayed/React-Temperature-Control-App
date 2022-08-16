@@ -1,15 +1,33 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [temp, setTemp] = useState(0);
+  const [tempColor, setTempColor] = useState("cold");
 
-  function handleIncrease() {}
-  function handleDecrease() {}
+  function handleIncrease() {
+    if (temp >= 0 && temp < 30) {
+      setTemp(temp + 1);
+    }
+  }
+  function handleDecrease() {
+    if (temp > 0 && temp <= 30) {
+      setTemp(temp - 1);
+    }
+  }
+
+  useEffect(() => {
+    if (temp <= 16) {
+      setTempColor("cold");
+    } else {
+      setTempColor("hot");
+    }
+  }, [temp]);
+
   return (
     <div className="app-container">
       <div className="temperature-display-container">
-        <div className={`temperature-display ${temp}`}>{temp}</div>
+        <div className={`temperature-display ${tempColor}`}>{temp}°C</div>
       </div>
       <div className="button-container">
         <button onClick={handleIncrease}>+</button>
